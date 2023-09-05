@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "ContextCue",
+  "version": "1.0",
+  "description": "Extracts context from web pages and translates",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup/popup.html"
+  }
+}
