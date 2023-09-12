@@ -15,17 +15,23 @@ document.getElementById("extractButton").addEventListener("click", () => {
 });
 
 function extractText() {
-    const text = document.body.innerText;
+    // TO GET ONLY ARTICLE TEXT FROM PAGE (NOT WORKING)
+    // const documentClone = document.cloneNode(true);
+    // const article = Readability(documentClone).parse();
+    // const text = article.textContent;
 
+    const text = document.body.innerText;
+    var doc = nlp(text);
+    var nouns = doc.match('#Noun').not('#Pronoun').out('array');
     chrome.runtime.sendMessage({
         action: "displayText",
-        text: text
+        nouns
     });
 }
 
 chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "displayText") {
         const outputDiv = document.getElementById("output");
-        outputDiv.textContent = message.text;
+        outputDiv.textContent = message.nouns.join(", ");
     }
 });
